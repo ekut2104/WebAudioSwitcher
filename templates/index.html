@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Device Switcher</title>
+        <style>
+        /* Стилі для повідомлень */
+        .success-message {
+            color: green;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+
+        /* Стилі для кнопок */
+        .device-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Devices</h1>
+    {% if message %}
+        <p class="{{ 'success-message' if message == 'Success' else 'error-message' }}">{{ message }}</p>
+    {% endif %}
+
+    <form action="/set_output_device" method="post">
+        {% for device in all_devices %}
+            <button class="device-button" type="submit" name="device" value="{{ device.Index }}">{{ device.Index, device.Name }}</button>
+        {% endfor %}
+    </form>
+
+    <hr>
+    <h2>All Audio Devices:</h2>
+    <ul>
+        {% for device in all_devices %}
+            <li>{{device.Index, device.Name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
